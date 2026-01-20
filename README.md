@@ -50,8 +50,7 @@
 
 | โฟลเดอร์/ไฟล์ | หน้าที่ |
 | :--- | :--- |
-| `src/app.py` | ไฟล์หลักสำหรับรัน Streamlit Dashboard |
-
+| `src/app.py` | ไฟล์หลักสำหรับรัน Streamlit Dashboard 
 | `requirements.txt` | รายชื่อ Library ทั้งหมดที่ต้องใช้ |
 | `README.md` | เอกสารอธิบายโปรเจกต์ |
 
