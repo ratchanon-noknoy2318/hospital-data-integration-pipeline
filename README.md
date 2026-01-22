@@ -1,30 +1,45 @@
-# HOSxP to Buddy Care Pipeline
-**Clinical Data Integration & ETL Automation**
+# Project Documentation: HOSxP to Buddy Care Data Pipeline
 
----
-
-### Technical Specification
-| Category | Detail | Implementation |
-| :--- | :--- | :--- |
-| **Stack** | Python / SQL | Automated ETL Pipeline |
-| **Source** | HOSxP | MySQL Database Optimization |
-| **Target** | Buddy Care | API / Web Platform Integration |
-| **Integrity** | Data Mapping | Schema Compatibility Logic |
-
----
-
-### Engineering & Impact
-| Component | Technical Outcome |
+| Information | Details |
 | :--- | :--- |
-| **Extraction** | High-volume clinical data retrieval via optimized SQL |
-| **Consistency** | Systematic validation for cross-platform data integrity |
-| **Automation** | Replaced manual entry with scheduled synchronization |
-| **Efficiency** | Real-time data availability for clinical staff |
+| **Project Name** | HOSxP to Buddy Care Data Integration |
+| **Developer** | Ratchanon Noknoy |
+| **Role** | Software Engineer / Data Pipeline Developer |
+| **Status** | Completed |
 
 ---
 
-### Quick Start & Contact
-- **Setup:** `pip install -r requirements.txt`
-- **Run:** `python main.py`
-- **Project Activity Details:** [Activity Details](https://drive.google.com/file/d/1DOoV5dL3MxNVcWfKgINcHnSXXz-lEgxQ/view)
-- **Connect:** [LinkedIn](https://www.linkedin.com/in/ratchanon-noknoy/) | [GitLab](https://gitlab.com/ratchanon.noknoy2318)
+### Project Specification
+
+| Category | Description |
+| :--- | :--- |
+| **Objective** | To migrate and synchronize patient records from HOSxP to the Buddy Care platform while maintaining data integrity. |
+| **Source System** | HOSxP (MySQL Database) |
+| **Destination** | Buddy Care Web Platform |
+| **Key Processes** | Automated ETL, SQL Optimization, Data Validation |
+
+---
+
+### Technical Implementation
+
+| Component | Technical Details |
+| :--- | :--- |
+| **Data Extraction** | Optimized SQL queries for high-volume clinical data retrieval. |
+| **Consistency** | Mapping logic implemented to ensure schema compatibility between platforms. |
+| **Automation** | Streamlined synchronization to replace manual data entry. |
+
+---
+
+### Operational Impact
+
+| Metric | Outcome |
+| :--- | :--- |
+| **Efficiency** | Significant reduction in time required for data synchronization. |
+| **Accuracy** | Enhanced data reliability for clinical reporting and patient tracking. |
+| **Service Quality** | Improved access to real-time information for healthcare staff. |
+
+---
+
+**Contact and Profiles**
+* **LinkedIn:** [linkedin.com/in/ratchanon-noknoy/](https://www.linkedin.com/in/ratchanon-noknoy/)
+* **GitLab:** [ratchanon.noknoy2318](https://gitlab.com/ratchanon.noknoy2318)
