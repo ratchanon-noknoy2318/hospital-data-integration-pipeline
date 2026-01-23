@@ -1,26 +1,25 @@
 SELECT
-    CASE WHEN p.sex = 1 THEN '003'
-         WHEN p.sex = 2 THEN '004'
-    END AS 'คำนำหน้า',
-    p.fname AS "ชื่อ",
-    p.lname AS "นามสกุล",
-    p.sex AS "เพศ",
-    RIGHT(CONCAT('0', DAY(p.birthdate)), 2) AS "วันเกิด",
-    RIGHT(CONCAT('0', MONTH(p.birthdate)), 2) AS "เดือนเกิด",
-    YEAR(p.birthdate) AS "ปีเกิด",
-    p.cid AS "เลขบัตรประชาชน",
-    p.house_regist_type_id AS "ประเภทที่อยู่อาศัย",
-    CONCAT(v.address_id, RIGHT(CONCAT('0', v.village_moo), 2)) AS "เลขที่อยู่อาศัย",
-    v.village_name AS "ชื่อหมู่บ้าน",
-    REGEXP_REPLACE(h.address, '[^0-9]', '') AS "บ้านเลขที่",
-    h.road AS "ชื่อถนน"
-FROM person p
-    LEFT JOIN pname p2 ON p.pname = p2.`name`
-    LEFT JOIN house h ON p.house_id = h.house_id
-    LEFT JOIN village v ON h.village_id = v.village_id
-    LEFT JOIN patient p3 ON p.patient_hn = p3.hn
-WHERE p.house_regist_type_id IN (1, 3)
-    AND v.village_moo <> 0
-    AND p.nationality = 99
-    AND p.person_discharge_id = 9
-    AND p.birthdate IS NOT NULL;
+person.prename AS `คํานําหน้า`,
+person.fname AS `ชื่อ`,
+person.lname AS `นามสกุล`,
+person.sex AS `เพศ`,
+right(birth,2) AS `วันเกิด`,
+mid(birth,6,2) AS `เดือนเกิด`,
+YEAR(birth) AS `ปีเกิด`,
+person.idcard AS `เลขบัตรประชาชน`,
+person.typelive AS `ประเภทที่อยู่อาศัย`,
+house.villcode AS `เลขที่อยู่อาศัย`,
+village.villname AS `ชื่อหมู่บ้าน`,
+person.hnomoi AS `บ้านเลขที่`,
+house.road AS `ชื่อถนน`,
+house.xgis AS `ละติจูด`,
+house.ygis AS `ลองติจูด`,
+'' AS `ประเภทผู้ป่วย`,
+'' AS หนังสือเดินทาง
+FROM
+person
+INNER JOIN house ON person.hcode = house.hcode
+INNER JOIN village ON house.pcucode = village.pcucode AND house.villcode = village.villcode
+WHERE
+person.typelive IN(1,3) AND
+person.dischargetype = '9'
