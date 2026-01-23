@@ -1,5 +1,8 @@
 SELECT
-    o.*,
+    o.hn,
+    o.agent,
+    o.symptom,
+    o.begin_date,
     CONCAT(p.pname, p.fname, ' ', p.lname) AS patient_name,
     ar.relation_name,
     ag.allergy_group_name,

@@ -1,1 +1,6 @@
-select vl.village_moo,vl.village_name,ta.full_name from village  vl left join thaiaddress ta on  ta.addressid = vl.address_id
+SELECT
+    vl.village_moo,
+    vl.village_name,
+    ta.full_name
+FROM village vl
+LEFT JOIN thaiaddress ta ON ta.addressid = vl.address_id;
