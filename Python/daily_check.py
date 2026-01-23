@@ -3,13 +3,18 @@ import pandas as pd
 from datetime import datetime, timedelta
 from linebot import LineBotApi
 from linebot.models import TextSendMessage
+import os
+from dotenv import load_dotenv
+
+# โหลดค่าจากไฟล์ .env
+load_dotenv()
 
 # --- ตั้งค่าส่วนตัว (ห้ามแชร์ให้คนอื่น) ---
-LINE_ACCESS_TOKEN = 'ใส่_CHANNEL_ACCESS_TOKEN_ตรงนี้'
-USER_ID = 'ใส่_USER_ID_ของคุณตรงนี้'
+LINE_ACCESS_TOKEN = os.getenv('LINE_ACCESS_TOKEN')
+USER_ID = os.getenv('LINE_USER_ID')
 db_config = {
-    'host': 'localhost', 'user': 'admin', 'password': 'password',
-    'database': 'hosxp', 'port': 3306, 'charset': 'utf8'
+    'host': os.getenv('DB_HOST'), 'user': os.getenv('DB_USER'), 'password': os.getenv('DB_PASSWORD'),
+    'database': os.getenv('DB_NAME'), 'port': int(os.getenv('DB_PORT', 3306)), 'charset': 'utf8'
 }
 
 def check_and_notify_line():
