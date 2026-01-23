@@ -1,14 +1,16 @@
-### Data Mapping Schema (HOSxP Standard)
+### ตารางหลัก
 
-| HOSxP Field | Local Field | Type | Description |
+| HOSxP Field (`person` table) | `patients` Table Field | Type | Description |
 | :--- | :--- | :--- | :--- |
-| **hn** | `hn` | VARCHAR(10) | Hospital Number |
-| **cid** | `cid` | VARCHAR(13) | National ID (Primary Key) |
-| **pname** | `pname` | VARCHAR(20) | Title (e.g., นาย, นาง, นางสาว) |
-| **fname** | `fname` | VARCHAR(100) | First Name |
-| **lname** | `lname` | VARCHAR(100) | Last Name |
-| **birthday** | `birth_year` | INT | Year of Birth |
-| **sex** | `sex` | INT | Gender (1=Male, 2=Female) |
+| `p.cid` | `citizen_id` | VARCHAR(13) | National ID (UNIQUE, NOT NULL) |
+| `p.pname` (from `pname` table) | `title` | VARCHAR(20) | Title (e.g., นาย, นาง, นางสาว) |
+| `p.fname` | `first_name` | VARCHAR(100) | First Name |
+| `p.lname` | `last_name` | VARCHAR(100) | Last Name |
+| `p.birthdate` | `birthdate` | DATE | Full Date of Birth |
+| `p.sex` | `gender` | TINYINT | Gender (1=Male, 2=Female) |
+| `h.address` (parsed) | `house_number` | VARCHAR(50) | House Number |
+| `h.road` | `road` | VARCHAR(100) | Road Name |
+| `v.village_name` | `village_name` | VARCHAR(100) | Village Name |
 
 ---
 
