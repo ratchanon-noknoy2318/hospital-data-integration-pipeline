@@ -52,9 +52,9 @@ def export_patient_data():
         # 5. แสดงผล 5 แถวแรก
         print(df.head())
         
-        # 6. (แถม) ส่งออกเป็นไฟล์ Excel
-        # df.to_excel("patient_data.xlsx", index=False)
-        # print("บันทึกไฟล์ patient_data.xlsx สำเร็จ!")
+        # 6. ส่งออกเป็นไฟล์ Excel
+        df.to_excel("patient_data.xlsx", index=False)
+        print("บันทึกไฟล์ patient_data.xlsx สำเร็จ!")
 
     except Exception as e:
         print(f"เกิดข้อผิดพลาด: {e}")
