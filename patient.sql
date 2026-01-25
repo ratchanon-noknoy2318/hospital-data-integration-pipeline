@@ -2,8 +2,10 @@ SELECT
     JSON_ARRAYAGG(
         JSON_OBJECT(
             'hn', hn,
+            'hashed_id', SHA2(cid, 256), 
+            'masked_fname', CONCAT(LEFT(fname, 2), '****'),
+            'masked_lname', CONCAT(LEFT(lname, 2), '****'),
             'prefix', pname,
-            -- แปลงค่าตัวเลขเป็นคำอ่าน
             'gender_label', CASE 
                 WHEN sex = '1' THEN 'ชาย' 
                 WHEN sex = '2' THEN 'หญิง' 
@@ -13,7 +15,6 @@ SELECT
         )
     ) AS patient_json_data
 FROM patient
--- ดึงมาเฉพาะกลุ่มที่เสี่ยงจะผิดเพื่อประหยัด Token ของ AI
 WHERE 
     (pname = 'นาย' AND sex != '1') 
     OR (pname IN ('นาง', 'นางสาว') AND sex != '2')
