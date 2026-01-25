@@ -1,47 +1,37 @@
 # HOSxP Data Integration Pipeline
+### Kamphaeng Phet Municipality Community Hospital
 
-SQL-based pipeline for **400K+ healthcare records**, optimized for executive BI, AI data auditing, and staff automation.
-
----
-
-## Data Governance (PDPA Compliant)
-* **PII Protection:** Strategic data minimization for workflow security.
-* **Integrity:** Strict schema constraints to prevent duplication/leakage.
-* **Reliability:** Managed sensitive records in compliance with Thailand's PDPA.
+**Project Impact:** Optimized SQL architecture for **400,000+ patient records**, ensuring high data integrity and supporting executive-level decision making.
 
 ---
 
-## Schema Mapping
-| Source (HOSxP) | Target (Integrated) | Type | Note |
-| :--- | :--- | :--- | :--- |
-| p.cid | citizen_id | VARCHAR(13) | **Unique/PII** |
-| p.pname | title | VARCHAR(20) | Identity |
-| p.fname | first_name | VARCHAR(100) | Identity |
-| p.lname | last_name | VARCHAR(100) | Identity |
-| p.birthdate | birthdate | DATE | Sensitive |
-| p.sex | gender | INT | Demographic |
-| h.address | house_number| VARCHAR(50) | Location |
-| h.road | road | VARCHAR(100) | Location |
-| v.village_name| village_name | VARCHAR(100) | Location |
+## Technical Summary
+* **Core Stack:** SQL (HOSxP Database)
+* **Compliance:** 100% PDPA (Thailand) aligned via SQL-level Data Minimization
 
 ---
 
-## Data Utilization
-### 1. Executive Decision Support
-* **BI Dashboards:** Real-time stats for **Top Management** strategic planning.
-* **Resource Allocation:** Trend-based budgeting and staffing optimization.
+## Project Execution & Data Utilization
 
-### 2. AI-Powered Data Quality
-* **Anomaly Detection:** AI models identify mismatched ages or invalid IDs.
-* **Auto-Audit:** Automated cleaning of inconsistent or duplicate Master Data.
+| Focus Area | Technical Implementation (SQL-Based) | Organizational Impact |
+| :--- | :--- | :--- |
+| **Executive Support** | Engineered SQL Views and Complex Analytical Queries. | Enabled **Top-Level Management** to make data-driven policy & resource decisions. |
+| **Data Quality** | Authored SQL validation scripts for ID formats and age inconsistencies. | Automated **Master Data cleansing** and reduced manual auditing time. |
+| **Operational Auto** | Developed SQL Triggers and Stored Procedures for staff notifications. | Eliminated redundant data entry and improved staff response times. |
+| **Data Security** | Enforced HN Primary Key and strict SQL schema constraints. | Secured **400K+ records** in compliance with national PDPA standards. |
 
-### 3. Staff Workflow Automation
-* **Staff Alerts:** LINE API integration for automated appointment & task reminders.
-* **System Sync:** Automatic patient data sync to eliminate manual entry errors.
+---
+
+## Key Schema Mapping
+| Field | Role | Note |
+| :--- | :--- | :--- |
+| **hn** | **PRIMARY KEY** | **Hospital Standard Internal Anchor** |
+| citizen_id | Unique ID | PII - Secure SQL handling |
+| full_name | Identity | Patient Identification |
+| birthdate | Logic | Used for Demographic Analytics |
+| location_data | Geospatial | Infrastructure & Resource Planning |
 
 ---
 
 ## Contact
-* **Ratchanon Noknoy**
-* [LinkedIn](https://linkedin.com/in/ratchanon-noknoy/) | [GitHub](https://github.com/ratchanon.noknoy2318)
-* **Email:** ratchanon.noknoy2318@gmail.com
+**Ratchanon Noknoy** [LinkedIn](https://linkedin.com/in/ratchanon-noknoy/) | [GitHub](https://github.com/ratchanon.noknoy2318) | ratchanon.noknoy2318@gmail.com
