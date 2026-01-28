@@ -1,4 +1,5 @@
 import pymysql
+import pandas as pd
 from datetime import datetime, timedelta
 from linebot import LineBotApi
 from linebot.models import TextSendMessage
@@ -32,20 +33,18 @@ def check_and_notify_line():
         ORDER BY total DESC
         """
         
-        # ใช้ Cursor แบบ Dictionary เพื่อให้อ้างอิงชื่อคอลัมน์ได้เหมือน Pandas (row['total'])
-        with conn.cursor(pymysql.cursors.DictCursor) as cursor:
-            cursor.execute(sql)
-            rows = cursor.fetchall()  # ได้ผลลัพธ์เป็น List of Dictionaries
+        # ใช้ Pandas ดึงข้อมูลและจัดการ DataFrame
+        df = pd.read_sql(sql, conn)
 
         # 3. สร้างข้อความสำหรับรายงาน
-        if rows:
+        if not df.empty:
             report_msg = f"📊 รายงานสรุปผู้ป่วยวันที่ {yesterday}\n"
             report_msg += "--------------------------\n"
-            total_all = 0
-            for row in rows:
+            
+            for index, row in df.iterrows():
                 report_msg += f"🔹 {row['clinic_name']}: {row['total']} คน\n"
-                total_all += row['total']
-                
+            
+            total_all = df['total'].sum()
             report_msg += "--------------------------\n"
             report_msg += f"✅ รวมทั้งสิ้น: {total_all} คน"
         else:
