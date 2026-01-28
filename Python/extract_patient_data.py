@@ -1,34 +1,29 @@
 import pymysql
 import pandas as pd
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+
+# โหลดค่าจากไฟล์ .env
+load_dotenv()
 
 # 1. ตั้งค่าการเชื่อมต่อฐานข้อมูล
 db_config = {
-    'host': 'localhost',
-    'user': 'admin',
-    'password': '123456',
-    'database': 'hosxp',
-    'port': 3306,
+    'host': os.getenv('DB_HOST', 'localhost'),
+    'user': os.getenv('DB_USER', 'admin'),
+    'password': os.getenv('DB_PASSWORD', '123456'),
+    'database': os.getenv('DB_NAME', 'hosxp'),
+    'port': int(os.getenv('DB_PORT', 3306)),
     'charset': 'utf8'
 }
-def test_connection():
-    # Database configuration
-    db_config = {
-        'host': 'localhost',
-        'user': 'admin',
-        'password': '123456',
-        'database': 'hosxp',
-        'port': 3306,
-        'charset': 'utf8'
-    }
 
 def export_full_report():
     conn = None
     try:
         # 2. เชื่อมต่อ MySQL
-        print("Connecting to Database...")
-        print("Connecting to database...")
+        print("Connecting to the database...")
         conn = pymysql.connect(**db_config)
+        print("Connection successful!")
         
         # 3. SQL Query (ชุดที่คุณให้มา)
         sql_query = """
@@ -58,10 +53,14 @@ def export_full_report():
         """
         
         # 4. ดึงข้อมูลเข้า Pandas DataFrame
+        print("Fetching data from database...")
         df = pd.read_sql(sql_query, conn)
-        print(f"ดึงข้อมูลมาได้ทั้งหมด: {len(df)} รายการ")
-        print("Connection successful!")
+        print(f"Fetched {len(df)} records.")
 
+        if df.empty:
+            print("No data found. The report will be empty.")
+            return
+        
         # --- [ 5. ส่วนจัดการข้อมูล (Data Transformation) ] ---
         
         # ก. รวมชื่อ-นามสกุล และลบช่องว่าง
@@ -71,17 +70,12 @@ def export_full_report():
         df['เพศ'] = df['เพศ'].replace({1: 'ชาย', 2: 'หญิง', '1': 'ชาย', '2': 'หญิง'})
         
         # ค. คำนวณอายุ (ปีปัจจุบัน - ปีเกิด)
-        this_year = datetime.now().year + 543  # ใช้ปี พ.ศ.
-        df['อายุ'] = this_year - df['ปีเกิด'].fillna(this_year).astype(int)
+        this_year_buddhist = datetime.now().year + 543  # ใช้ปี พ.ศ.
+        df['ปีเกิด'] = pd.to_numeric(df['ปีเกิด'], errors='coerce')
+        df['อายุ'] = this_year_buddhist - df['ปีเกิด'].fillna(this_year_buddhist).astype(int)
         
         # ง. จัดการค่าว่าง (Null) ให้ดูสวยงาม
-        df['ชื่อถนน'] = df['ชื่อถนน'].fillna('-')
-        df['ละติจูด'] = df['ละติจูด'].fillna(0)
-        df['ลองติจูด'] = df['ลองติจูด'].fillna(0)
-        with conn.cursor() as cursor:
-            cursor.execute("SELECT VERSION()")
-            version = cursor.fetchone()
-            print(f"Database version: {version[0]}")
+        df.fillna({'ชื่อถนน': '-', 'ละติจูด': 0, 'ลองติจูด': 0}, inplace=True)
 
         # จ. เลือกและเรียงลำดับคอลัมน์ที่จะเอาลง Excel
         final_columns = [
@@ -98,18 +92,17 @@ def export_full_report():
         df_final.to_excel(filename, index=False, sheet_name='Data_Patient')
         
         print("-" * 30)
-        print(f"สำเร็จ! ไฟล์ถูกบันทึกที่: {filename}")
+        print(f"Success! File has been saved as: {filename}")
         print("-" * 30)
 
+    except pymysql.Error as db_err:
+        print(f"Database Error: {db_err}")
     except Exception as e:
-        print(f"เกิดข้อผิดพลาด: {e}")
-        print(f"Error: {e}")
+        print(f"An unexpected error occurred: {e}")
     finally:
-      
-        if conn:
+        if conn and conn.open:
             conn.close()
-            print("Connection closed.")
+            print("Database connection closed.")
 
 if __name__ == "__main__":
     export_full_report()
-    test_connection()
