@@ -7,15 +7,30 @@
 The system utilizes a **Dual-Channel Data Pipeline** to isolate standard clinical operations from secure AI-driven validation.
 
 ```mermaid
-graph LR
-    A[Legacy Clinical Data] --> B[SQL Optimization]
-    B --> C{Secure Data Engine}
-    
-    %% Path 1: Intelligence (Privacy-Enforced)
-    C --> D[PII Masking & Anonymization]
-    D --> E[AI Integrity Check]
-    E --> F[Predictive Analytics]
-    
-    %% Path 2: Operations
-    C --> G[Optimized Data Export]
-    G --> H[Executive BI Dashboard]
+graph TD
+    %% 1. Source Layer
+    subgraph Source_Layer [1. Legacy Data Ingress]
+        A[(HOSxP Clinical SQL)] -->|Change Data Capture| B[Data Orchestrator]
+    end
+
+    %% 2. Core Optimization
+    subgraph Optimization_Layer [2. SQL Performance Refactoring]
+        B -->|24x Latency Reduction| C{High-Concurrency Engine}
+    end
+
+    %% 3. Intelligence & Operations (Parallel Paths)
+    subgraph Security_Intelligence [3. Privacy-First AI]
+        C -->|Secure Stream| D[PII Masking & Tokenization]
+        D -->|Anonymized Flow| E[AI Predictive Engine]
+    end
+
+    subgraph Operations_Insight [4. Operational Excellence]
+        C -->|Optimized Export| G[OLAP Analytics Cube]
+        G -->|Sub-second Delivery| H[Executive BI Dashboard]
+    end
+
+    %% Visual Styling for Professional Look
+    style C fill:#f9f,stroke:#333,stroke-width:2px
+    style A fill:#007bff,color:#fff
+    style D fill:#fff,stroke:#ff0000,stroke-dasharray: 5 5
+    style H fill:#28a745,color:#fff
